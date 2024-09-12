@@ -1,0 +1,85 @@
+@font-face 
+    font-family: "PPTSans"
+    src: url("../fonts/PTSans-Regular.ttf")
+    font-weight: regular
+    font-style: normal
+
+@font-face 
+    font-family: "PPTSans"
+    src: url("../fonts/PTSans-Bold.ttf")
+    font-weight: bold
+    font-style: normal
+
+html
+    font-family: "PPTSans"
+    font-weight: regular
+    scroll-behavior: smooth
+
+
+*
+    box-sizing: border-box
+    
+body
+    margin: 0
+    background-color: #C6D0D7
+
+.header
+    top: 0
+    height: 60px
+    background: #0F1C23
+    &__container
+        height: 60px
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+        width: 1300px
+        margin: 0 auto
+    &__container-logo
+        width: 580px
+    &__container-nav
+        width: 640px
+    &__logo
+        margin-left: 150px
+        margin-right: 300px
+        width: 130px
+
+.nav-menu
+    display: flex
+    align-items: center
+    &__list
+        display: flex
+        flex-direction: row
+        margin: 0
+        padding: 0
+    &__list-item
+        margin-right: 50px
+        font-size: 16px
+        &:last-child
+            margin-right: 0px
+    &__text
+        color: #FF881B
+        font-family: "PPTSans"
+        text-decoration: none
+    &__text:hover
+        color: #ffaf65
+
+.empty-text
+    width: 262px
+
+.form-control
+    margin-bottom: 10px
+    background: #C6D0D7
+    // background: rgba(0,0,0,0.3);
+    
+.page-link
+    color: #000000
+
+.pagination
+    // --bs-pagination-color: #FF881B
+    // --bs-pagination-active-bg: #FF881B
+    --bs-pagination-hover-color: #FF881B
+    --bs-pagination-focus-color: #FF881B
+    --bs-pagination-active-border-color: #FF881B
+
+footer
+    height: 50px

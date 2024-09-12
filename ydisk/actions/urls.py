@@ -2,11 +2,12 @@
 
 from django.urls import path
 
-from .views import FollowLinkView, clear_search
+from .views import UserLoginView, FollowLinkView, clear_search
 
 app_name = 'actions'
 
 urlpatterns = [
-    path('', FollowLinkView.as_view(), name='weather_forecast'),
-    path('clear-search/', clear_search, name='clear_search'),
+    path('', UserLoginView.as_view(), name='login'),
+    path('public-link', FollowLinkView.as_view(), name='public_link'),
+    path('clear-link/', clear_search, name='clear_link'),
 ]
