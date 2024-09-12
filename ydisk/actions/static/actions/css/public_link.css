@@ -39,8 +39,8 @@ html {
 /* .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; } */
 /* line 34, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 input {
-  width: 87%;
-  margin-bottom: 10px;
+  width: 86%;
+  /* margin-bottom: 10px; */
   background: #E8F0FE;
   border: none;
   outline: none;
@@ -61,6 +61,7 @@ input {
 .form__clear {
   display: flex;
   justify-content: space-between;
+  height: 40px;
 }
 
 /* line 56, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
