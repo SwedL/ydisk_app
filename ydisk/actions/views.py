@@ -1,4 +1,5 @@
-from datetime import date, timedelta
+import os
+import yadisk
 
 from django.core.cache import cache
 from django.http import HttpResponseNotFound, HttpResponseRedirect
@@ -9,6 +10,7 @@ from django.urls import reverse
 from django.views import View
 
 from .forms import LinkForm, UserLoginForm
+from common.views import PublicResource
 
 
 class UserLoginView(LoginView):
@@ -32,36 +34,36 @@ def logout_user(request):
 class FollowLinkView(View):
     """ Представление главной страницы - получения публичной ссылки """
 
-    title = 'Переход по ссылке'
+    title = 'Публичная ссылка'
     form_class = LinkForm
-
-    # @property
-    # def create_date(self):
-    #     """ Функция создаёт и возвращает список дней недели"""
-    #     dates_week = [date.today() + timedelta(days=i) for i in range(7)]
-    #     return dates_week
+    client = yadisk.Client()
 
     def get(self, request):
-        # date_and_temperature_list = [{'date': d, 'temperature': '-'} for d in self.create_date]
-
         context = {
             'form': self.form_class,
             'title': self.title,
-            # 'date_and_temperature_list': date_and_temperature_list,
         }
 
         return render(request, 'actions/public_link.html', context=context)
 
     def post(self, request):
-        error = None  # флаг указывающий ошибки получения данных по городу, для alert сообщения
+        public_key = request.POST['public_key']
+        raw_data_public_resources = self.client.get_public_meta(public_key)
 
-        link = request.POST['link']
-        print(link)
+        public_resources = []
+        for s in raw_data_public_resources.public_listdir():
+            public_resources.append(PublicResource(
+                name=s['name'],
+                type=s['type'],
+                path=s['path'],
+                download_link=s['file']
+            ))
+
+        print(public_resources)
 
         context = {
             'form': self.form_class(request.POST),
             'title': self.title,
-            'error': error,
         }
 
         return render(request, 'actions/public_link.html', context=context)

@@ -16,7 +16,7 @@
         {% csrf_token %}
 
         <div class="form__clear">
-        {{form.link}}
+        {{form.public_key}}
         <a href="{% url 'actions:clear_link' %}"><button type="button" class="btn btn-primary btn-x">X</button></a>
         <button type="submit" class="btn btn-primary btn-block btn-large">Enter</button>
         <!-- <button type="submit" class="btn btn-primary" -->

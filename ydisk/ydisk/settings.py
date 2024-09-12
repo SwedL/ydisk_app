@@ -129,5 +129,5 @@ INTERNAL_IPS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'structure:login'
-LOGIN_REDIRECT_URL = '/public-link/'
+LOGIN_REDIRECT_URL = '/public-key/'
 LOGOUT_REDIRECT_URL = '/'
