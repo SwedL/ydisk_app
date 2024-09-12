@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block css %}
+<link rel="stylesheet" href="{% static 'actions/css/base.css' %}" xmlns="http://www.w3.org/1999/html">
 <link rel="stylesheet" href="{% static 'actions/css/login.css' %}" xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 
@@ -17,7 +18,7 @@
 
     {{form.username}}
     {{form.password}}
-
+<!--    <button type="button" class="btn btn-primary">Primary</button>-->
     <button type="submit" class="btn btn-primary btn-block btn-large">Log in</button>
 </form>
 </div>
