@@ -1,0 +1,43 @@
+{% extends 'actions/base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'actions/css/main.css' %}" xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<div class="city">
+    <h1></h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form__clear">
+        {{form.city}}
+        <a href="{% url 'actions:clear_search' %}"><button type="button" class="btn btn-primary btn-x">X</button></a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Получить прогноз</button>
+    </form>
+    <div class="forecast">
+        {% for dt in date_and_temperature_list %}
+            <div class="forecast__days">{{dt.date|date:"d"}} {{dt.date|date:"D"}}
+                        <br>{{dt.temperature|default:"-"}}&#8451
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+    {% if error %}
+        <script>
+            setTimeout(() => {  alert("К сожалению указанный город не удалось определить"); }, 200);
+        </script>
+    {% endif %}
+{% endblock script %}

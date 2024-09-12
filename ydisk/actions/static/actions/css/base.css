@@ -1,0 +1,65 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "PPTSans";
+  src: url("../fonts/PTSans-Regular.ttf");
+  font-weight: regular;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PPTSans";
+  src: url("../fonts/PTSans-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+html {
+  font-family: "PPTSans";
+  font-weight: regular;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  /* background-color: #DEFDFF; */
+}
+
+.header {
+  top: 0;
+  height: 60px;
+  background: #0F1C23;
+}
+
+.header__container {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.header__container-logo {
+  width: 880px;
+}
+
+.header__container-nav {
+  width: 640px;
+}
+
+.header__logo {
+  margin-left: 150px;
+  margin-right: 300px;
+  width: 130px;
+}
+
+.form-control {
+  margin-bottom: 100px;
+  background: #C6D0D7;
+}
+
+
