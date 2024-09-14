@@ -52,19 +52,27 @@ class PublicKeyView(View):
                 path=path
             )
 
-            context = {
+            context.update({
                 'form': self.form_class({'public_key': public_key}),
-                'title': self.title,
                 'public_resources_path': public_resources_path,
                 'public_resources': public_resources,
                 'public_key': public_key
-            }
+            })
 
         return render(request, 'actions/public_link.html', context=context)
 
-    def post(self, request, public_key: str = None, path: str = None):
-        if 'level_up' in request.POST:
+    def post(self, request, public_key: str = None, path: str = '/'):
+        if request.POST.get('enter_public_key'):
+            path = '/'
+        if request.POST.get('level_up'):
             path = path.split('*')
+            #TODO level_up step by step
+        if request.POST.get('download_selected'):
+            selected_resource = {k: v for k, v in request.POST.items() if k.isdigit()}
+            print(f'скачиваем {selected_resource}')
+        if request.POST.get('download_all'):
+            print('скачиваем всё архивом')
+
         public_key = request.POST['public_key']
         public_resources, public_resources_path = get_public_resources(
             client=self.client,
@@ -86,7 +94,7 @@ class PublicKeyView(View):
 def clear_search(request):
     """ Функция для очистки полей формы поиска CityNameForm """
 
-    redirect_url = reverse('actions:weather_forecast')
+    redirect_url = reverse('actions:public_key')
     return HttpResponseRedirect(redirect_url)
 
 

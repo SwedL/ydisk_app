@@ -17,7 +17,7 @@
         <div class="form__public_key">
         {{form.public_key}}
         <a href="{% url 'actions:clear_link' %}"><button type="button" class="btn btn-primary btn-x">X</button></a>
-        <button class="btn btn-primary btn-block btn-large" name="enter_public_key" type="submit">Enter</button>
+        <button class="btn btn-primary btn-block btn-large" name="enter_public_key" value="True" type="submit">Enter</button>
         <!-- <button type="submit" class="btn btn-primary" -->
             <!-- style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Enter</button> -->
         </div>
@@ -25,15 +25,13 @@
         <div class="public_link__data public_resources">
             <div class="public_resources__path">
                 <div class="public_resources__path_str">{{public_resources_path}}</div>
-                <button class="btn btn-level-up" name="level_up" type="submit">&#8593</button>
+                <button class="btn btn-level-up" name="level_up" value="True" type="submit">&#8593</button>
             </div>
             <table class="public_resources__table resource" style="width:100%">
                 {% for pr in public_resources %}
                 <tr>
                     <td class="resource__input">
-                        <input id="id_resource" type="checkbox" name="{{pr.name}}" value="1"
-                            data-price="{{pr.type}}" 
-                            onclick="WashDis(1, 6)">
+                        <input type="checkbox" name="{{forloop.counter}}" value="{{pr.name}}">
                     </td>
                     {% if pr.type == 'dir' %}
                         <td class="resource__type">&#128193;</td>
@@ -47,8 +45,8 @@
                 {% endfor %}
             </table>
             <div class="public_resources__downloads">
-                <button class="btn btn-primary btn-block btn-downloads" name="download_selected" type="submit">Скачать выбранные файлы</button>
-                <button class="btn btn-primary btn-block btn-downloads" name="download_all" type="submit">Скачать одним архивом</button>
+                <button class="btn btn-primary btn-block btn-downloads" name="download_selected" value="True" type="submit">Скачать выбранные файлы</button>
+                <button class="btn btn-primary btn-block btn-downloads" name="download_all" value="True" type="submit">Скачать одним архивом</button>
             </div>
         </div>
     </form>

@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import yadisk
 
 
 @dataclass
@@ -12,6 +11,8 @@ class PublicResource:
 
 def get_public_resources(client, public_key, path):
     with client:
+        if '*' in path:
+            path = path.replace('*', '/')
         raw_data_public_resources = client.get_public_meta(public_key, path=path)
 
     public_resources_path = raw_data_public_resources.path
