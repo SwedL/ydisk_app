@@ -31,7 +31,7 @@ def logout_user(request):
     return redirect('/')
 
 
-class FollowLinkView(View):
+class PublicKeyView(View):
     """ Представление главной страницы - получения публичной ссылки """
 
     title = 'Публичная ссылка'

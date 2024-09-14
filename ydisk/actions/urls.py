@@ -2,12 +2,12 @@
 
 from django.urls import path
 
-from .views import UserLoginView, FollowLinkView, clear_search
+from .views import UserLoginView, PublicKeyView, clear_search
 
 app_name = 'actions'
 
 urlpatterns = [
     path('', UserLoginView.as_view(), name='login'),
-    path('public-key/', FollowLinkView.as_view(), name='public_key'),
+    path('public-key/', PublicKeyView.as_view(), name='public_key'),
     path('clear-link/', clear_search, name='clear_link'),
 ]
