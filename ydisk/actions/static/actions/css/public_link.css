@@ -216,4 +216,14 @@ html {
   margin-bottom: 20px;
 }
 
+/* line 172, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+.resource__input {
+  width: 30px;
+}
+
+/* line 174, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+.resource__type {
+  width: 40px;
+}
+
 /*# sourceMappingURL=public_link.css.map */

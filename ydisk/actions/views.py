@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views import View
 
 from .forms import LinkForm, UserLoginForm
-from common.views import PublicResource
+from common.views import PublicResource, get_public_resources
 
 
 class UserLoginView(LoginView):
@@ -38,35 +38,44 @@ class PublicKeyView(View):
     form_class = LinkForm
     client = yadisk.Client()
 
-    def get(self, request):
+    def get(self, request, public_key: str = None, path: str = None):
         context = {
             'form': self.form_class,
             'title': self.title,
         }
 
+        if path:
+            path = path.replace('*', '/')
+            public_resources, public_resources_path = get_public_resources(
+                client=self.client,
+                public_key=public_key,
+                path=path
+            )
+
+            context = {
+                'form': self.form_class(request.POST),
+                'title': self.title,
+                'public_resources_path': public_resources_path,
+                'public_resources': public_resources,
+                'public_key': public_key
+            }
+
         return render(request, 'actions/public_link.html', context=context)
 
-    def post(self, request):
+    def post(self, request, path: str = None):
         public_key = request.POST['public_key']
-        raw_data_public_resources = self.client.get_public_meta(public_key)
-
-        public_resources_path = raw_data_public_resources.path
-        public_resources = []
-        for s in raw_data_public_resources.public_listdir():
-            public_resources.append(PublicResource(
-                name=s['name'],
-                type=s['type'],
-                path=s['path'],
-                download_link=s['file']
-            ))
-
-        print(public_resources)
+        public_resources, public_resources_path = get_public_resources(
+            client=self.client,
+            public_key=public_key,
+            path=path
+        )
 
         context = {
             'form': self.form_class(request.POST),
             'title': self.title,
             'public_resources_path': public_resources_path,
             'public_resources': public_resources,
+            'public_key': public_key
         }
 
         return render(request, 'actions/public_link.html', context=context)

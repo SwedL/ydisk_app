@@ -27,15 +27,22 @@
                 <div class="public_resources__path_str">{{public_resources_path}}</div>
                 <button class="btn btn-level-up" name="level_up" type="submit">&#8593</button>
             </div>
-            <table class="public_resources__table" style="width:100%">
+            <table class="public_resources__table resource" style="width:100%">
                 {% for pr in public_resources %}
                 <tr>
-                    <td>
-                        <input class="resource" id="id_resource" type="checkbox" name="{{pr.name}}" value="1"
+                    <td class="resource__input">
+                        <input id="id_resource" type="checkbox" name="{{pr.name}}" value="1"
                             data-price="{{pr.type}}" 
                             onclick="WashDis(1, 6)">
-                        <label for="id_resource">{{pr.path}}</label>
                     </td>
+                    {% if pr.type == 'dir' %}
+                        <td class="resource__type">&#128193;</td>
+                        <td><label for="id_resource"><a href="{% url 'actions:public_key' public_key pr.path %}">{{pr.name}}</a></label></td>
+                    {% else %}
+                        <td class="resource__type">&#128196;</td>
+                        <td><label for="id_resource">{{pr.name}}</label></td>
+                    {% endif %}
+                    
                 </tr>
                 {% endfor %}
             </table>
