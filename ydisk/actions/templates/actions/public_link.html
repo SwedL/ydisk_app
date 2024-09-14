@@ -11,27 +11,40 @@
 {% block content %}
 
 <div class="public_link">
-    <h1></h1>
     <form method="post">
         {% csrf_token %}
 
-        <div class="form__clear">
+        <div class="form__public_key">
         {{form.public_key}}
         <a href="{% url 'actions:clear_link' %}"><button type="button" class="btn btn-primary btn-x">X</button></a>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Enter</button>
+        <button class="btn btn-primary btn-block btn-large" name="enter_public_key" type="submit">Enter</button>
         <!-- <button type="submit" class="btn btn-primary" -->
             <!-- style="--bs-btn-padding-y: .15rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Enter</button> -->
         </div>
         
-    </form>
-    <div class="forecast">
-        {% for dt in date_and_temperature_list %}
-            <div class="forecast__days">{{dt.date|date:"d"}} {{dt.date|date:"D"}}
-                        <br>{{dt.temperature|default:"-"}}&#8451
+        <div class="public_link__data public_resources">
+            <div class="public_resources__path">
+                <div class="public_resources__path_str">{{public_resources_path}}</div>
+                <button class="btn btn-level-up" name="level_up" type="submit">&#8593</button>
             </div>
-        {% endfor %}
-    </div>
-
+            <table class="public_resources__table" style="width:100%">
+                {% for pr in public_resources %}
+                <tr>
+                    <td>
+                        <input class="resource" id="id_resource" type="checkbox" name="{{pr.name}}" value="1"
+                            data-price="{{pr.type}}" 
+                            onclick="WashDis(1, 6)">
+                        <label for="id_resource">{{pr.path}}</label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="public_resources__downloads">
+                <button class="btn btn-primary btn-block btn-downloads" name="download_selected" type="submit">Скачать выбранные файлы</button>
+                <button class="btn btn-primary btn-block btn-downloads" name="download_all" type="submit">Скачать одним архивом</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

@@ -19,6 +19,6 @@ class LinkForm(forms.Form):
 
     public_key = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'введите публичную ссылку'}),
+        widget=forms.TextInput(attrs={'class': 'input_public_key', 'placeholder': 'введите публичную ссылку'}),
         label='public_key',
     )

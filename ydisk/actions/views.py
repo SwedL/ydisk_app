@@ -50,6 +50,7 @@ class PublicKeyView(View):
         public_key = request.POST['public_key']
         raw_data_public_resources = self.client.get_public_meta(public_key)
 
+        public_resources_path = raw_data_public_resources.path
         public_resources = []
         for s in raw_data_public_resources.public_listdir():
             public_resources.append(PublicResource(
@@ -64,6 +65,8 @@ class PublicKeyView(View):
         context = {
             'form': self.form_class(request.POST),
             'title': self.title,
+            'public_resources_path': public_resources_path,
+            'public_resources': public_resources,
         }
 
         return render(request, 'actions/public_link.html', context=context)

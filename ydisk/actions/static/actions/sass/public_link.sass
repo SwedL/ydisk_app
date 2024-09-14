@@ -82,7 +82,19 @@
     background-color: #4a77d4
 .btn-block
     width: 120px
-    display: block
+    // display: block
+.btn-x
+    margin-top: 4px
+.btn-level-up
+    width: 40px
+    height: 40px
+    padding: 0
+    color: #000000
+    border: 1px solid #959ba7
+.btn-downloads
+    width: 20%
+    margin-right: 15px
+    
 
 *
     -webkit-box-sizing: border-box
@@ -98,21 +110,19 @@ html
 
 .public_link
     position: absolute
-    top: 25%
+    top: 28%
     left: 10%
-    margin: -150px 0 0 -150px
+    margin: -150px 0 0 -50px
     width: 1300px
     height: 300px
 
-/* .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; } */
-
-input
+.input_public_key
     width: 86%
     // margin-bottom: 10px
     background: #E8F0FE
     border: none
     outline: none
-    padding: 10px
+    padding: 20px
     font-size: 13px
     text-shadow: 1px 1px 1px rgba(0,0,0,0.3)
     border: 1px solid rgba(0,0,0,0.3)
@@ -124,10 +134,36 @@ input
     -ms-transition: box-shadow .5s ease
     transition: box-shadow .5s ease
 
-.form__clear
+.form__public_key
     display: flex
     justify-content: space-between
     height: 40px
+    margin-bottom: 30px
 
-.btn-x
-    margin-top: 4px
+.public_resources
+    &__path
+        display: flex
+        width: 100%
+        height: 55px
+    &__path_str
+        width: 20%
+        margin-bottom: 15px
+        margin-right: 15px
+        background: #ffffff
+        border: none
+        outline: none
+        padding: 10px
+        font-size: 13px
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.3)
+        border: 1px solid rgba(0,0,0,0.3)
+        border-radius: 4px
+        box-shadow: inset 0 -5px 45px rgba(185, 185, 185, 0.2), 0 1px 1px rgba(255,255,255,0.2)
+        -webkit-transition: box-shadow .5s ease
+        -moz-transition: box-shadow .5s ease
+        -o-transition: box-shadow .5s ease
+        -ms-transition: box-shadow .5s ease
+        transition: box-shadow .5s ease
+    &__table
+        margin-bottom: 20px
+    &__downloads
+        // flex: 
