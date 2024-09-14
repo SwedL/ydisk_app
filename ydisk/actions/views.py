@@ -40,7 +40,7 @@ class PublicKeyView(View):
 
     def get(self, request, public_key: str = None, path: str = None):
         context = {
-            'form': self.form_class,
+            'form': self.form_class(),
             'title': self.title,
         }
 
@@ -53,7 +53,7 @@ class PublicKeyView(View):
             )
 
             context = {
-                'form': self.form_class(request.POST),
+                'form': self.form_class({'public_key': public_key}),
                 'title': self.title,
                 'public_resources_path': public_resources_path,
                 'public_resources': public_resources,

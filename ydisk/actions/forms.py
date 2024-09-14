@@ -17,7 +17,7 @@ class UserLoginForm(AuthenticationForm):
 class LinkForm(forms.Form):
     """ Форма ввода публичной ссылки для просмотра файлов """
 
-    public_key = forms.CharField(
+    public_key = forms.URLField(
         required=True,
         widget=forms.TextInput(attrs={'class': 'input_public_key', 'placeholder': 'введите публичную ссылку'}),
         label='public_key',
