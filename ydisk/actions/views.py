@@ -62,7 +62,9 @@ class PublicKeyView(View):
 
         return render(request, 'actions/public_link.html', context=context)
 
-    def post(self, request, path: str = None):
+    def post(self, request, public_key: str = None, path: str = None):
+        if 'level_up' in request.POST:
+            path = path.split('*')
         public_key = request.POST['public_key']
         public_resources, public_resources_path = get_public_resources(
             client=self.client,
