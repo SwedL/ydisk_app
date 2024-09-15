@@ -43,7 +43,7 @@ git clone https://github.com/SwedL/ydisk_app.git
 ```
 Перейдите в каталог проекта `ydisk_disk_app/ydisk`.<br>
 ```sh
-cd cd ydisk_app/ydisk/
+cd ydisk_app/ydisk/
 ```
 создайте виртуальное окружение:
 - Windows: `python -m venv venv`
@@ -74,31 +74,7 @@ python manage.py runserver
 ```
 Сервер работает на адресе <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a>
 
-## Как запустить версию сайта в docker.
-Скачайте код:
-```sh
-git clone https://github.com/SwedL/weather.git
-```
-Перейдите в каталог проекта `weather`.<br>
-```sh
-cd weather
-```
-Затем выполните сборку и запуск образа командами:
-```sh
-docker build . --tag weather
-```
-```sh
-docker run --rm -d --publish 8000:8000 weather
-```
-Сервер работает на адресе <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a>
 
-### Тестирование
-
-Проект покрыт тестами форм, представлений, URL, проверяющими его работоспособность.<br>
-Тесты запускаются командой:
-```sh
-python manage.py test
-```
 ## Автор проекта
 
 * **Осминин Алексей** - [SwedL](https://github.com/SwedL)

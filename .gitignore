@@ -5,3 +5,4 @@
 .flake8
 ydisk/__pycache__/
 common/__pycache__/
+venv/
