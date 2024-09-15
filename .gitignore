@@ -1,8 +1,8 @@
 .idea/
 .vscode/
-/db.sqlite3
 .env
 .flake8
-ydisk/__pycache__/
-common/__pycache__/
+/ydisk/__pycache__/
+/ydisk/common/__pycache__/
 venv/
+/ydisk/db.sqlite3
