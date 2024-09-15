@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views import View
 
 from .forms import LinkForm, UserLoginForm
-from common.views import PublicResource, get_public_resources
+from common.views import get_public_resources, download_files
 
 
 class UserLoginView(LoginView):
@@ -61,23 +61,26 @@ class PublicKeyView(View):
         return render(request, 'actions/public_link.html', context=context)
 
     def post(self, request, public_key: str = None, path: str = '/'):
+        public_key = request.POST.get('public_key')
+
         if request.POST.get('enter_public_key'):
-            path = '/'
+            reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': '*'})
+            return HttpResponseRedirect(reverse_url)
 
         if request.POST.get('level_up'):
             pre_path = path.rpartition('*')[0]  # при перемещении на уровень вверх убираем заднюю часть из пути
-            path = pre_path if pre_path else '*'  # если верхний уровень путь будет '*' заменится на '/' в get_public_resources
+            path = pre_path if pre_path else '*'  # если верхний уровень '' то '*', заменится на '/' в get_public_resources
             reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': path})
-            return redirect(reverse_url)
+            return HttpResponseRedirect(reverse_url)
 
         if request.POST.get('download_selected'):
-            selected_resource = {k: v for k, v in request.POST.items() if k.isdigit()}
-            print(f'скачиваем {selected_resource}')
+            selected_resources = [v for k, v in request.POST.items() if k.isdigit()]
+            download_files(client=self.client, public_key=public_key, path=path, selected_resources=selected_resources)
+            print(f'скачиваем {selected_resources}')
 
         if request.POST.get('download_all'):
             print('скачиваем всё архивом')
 
-        public_key = request.POST['public_key']
         public_resources, public_resources_path = get_public_resources(
             client=self.client,
             public_key=public_key,

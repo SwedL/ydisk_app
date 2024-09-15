@@ -1,6 +1,9 @@
+import os
 from dataclasses import dataclass
 from typing import Tuple
 from yadisk import Client
+from pathlib import Path
+
 
 
 @dataclass
@@ -28,4 +31,18 @@ def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
         ))
 
     return public_resources, public_resources_path
+
+
+def download_files(client: Client, public_key: str, path: str, selected_resources: list):
+    with client:
+        public_resources, public_resources_path = get_public_resources(client=client, public_key=public_key, path=path)
+        download_public_resources = [df for df in public_resources if df.name in selected_resources]
+        for dpr in download_public_resources:
+            if dpr.type == 'dir':
+                download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}.zip"))
+            else:
+                download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}"))
+            download_path = dpr.path.replace('*', '/')
+            client.download_public(public_key, download_folder, path=download_path)
+
 
