@@ -32,7 +32,7 @@ def logout_user(request):
 
 
 class PublicKeyView(View):
-    """ Представление главной страницы - получения публичной ссылки """
+    """ Представление страницы получения публичной ссылки """
 
     title = 'Публичная ссылка'
     form_class = LinkForm
@@ -45,7 +45,6 @@ class PublicKeyView(View):
         }
 
         if path:
-            path = path.replace('*', '/')
             public_resources, public_resources_path = get_public_resources(
                 client=self.client,
                 public_key=public_key,
@@ -64,12 +63,17 @@ class PublicKeyView(View):
     def post(self, request, public_key: str = None, path: str = '/'):
         if request.POST.get('enter_public_key'):
             path = '/'
+
         if request.POST.get('level_up'):
-            path = path.split('*')
-            #TODO level_up step by step
+            pre_path = path.rpartition('*')[0]  # при перемещении на уровень вверх убираем заднюю часть из пути
+            path = pre_path if pre_path else '*'  # если верхний уровень путь будет '*' заменится на '/' в get_public_resources
+            reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': path})
+            return redirect(reverse_url)
+
         if request.POST.get('download_selected'):
             selected_resource = {k: v for k, v in request.POST.items() if k.isdigit()}
             print(f'скачиваем {selected_resource}')
+
         if request.POST.get('download_all'):
             print('скачиваем всё архивом')
 

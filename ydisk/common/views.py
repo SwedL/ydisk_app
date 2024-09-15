@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Tuple
+from yadisk import Client
 
 
 @dataclass
@@ -9,7 +11,7 @@ class PublicResource:
     download_link: str
 
 
-def get_public_resources(client, public_key, path):
+def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
     with client:
         if '*' in path:
             path = path.replace('*', '/')
