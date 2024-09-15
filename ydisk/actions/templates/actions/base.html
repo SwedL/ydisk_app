@@ -19,16 +19,16 @@
 
     <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="header__container">
-            <div class="header__container-logo">
-                <img class="header__logo bi bi-cloud-sun me-2" src="{% static 'actions/icons/logo_yd.png' %}" alt="logo">
+        <!-- Header -->
+        <header class="header">
+            <div class="header__container">
+                <div class="header__container-logo">
+                    <img class="header__logo bi bi-cloud-sun me-2" src="{% static 'actions/icons/logo_yd.png' %}" alt="logo">
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-            <!-- Контент страницы -->
+        <!-- Контент страницы -->
         {% block content %} {% endblock %}
         <script src="https://unpkg.com/htmx.org@1.9.4"></script>
     </body>

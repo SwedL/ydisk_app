@@ -15,8 +15,9 @@ class PublicResource:
 
 def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
     """
-    Функция получает все публичные ресурсы по заданному пути
-    и возвращает кортеж из списка публичных ресурсов и путь
+    Функция получает все публичные ресурсы по заданному пути,
+    возвращает кортеж из списка публичных ресурсов и путь,
+    для отображение в строке интерфейса пользователя
     """
 
     if '*' in path:
@@ -24,9 +25,9 @@ def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
 
     with client:
         raw_data_public_resources = client.get_public_meta(public_key, path=path)
-
-        public_resources_path = raw_data_public_resources.path
         public_resources = []
+        # public_resources_path = raw_data_public_resources.path
+
         for s in raw_data_public_resources.public_listdir(path=path):
             public_resources.append(PublicResource(
                 name=s['name'],
@@ -35,11 +36,11 @@ def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
                 download_link=s['file']
             ))
 
-    return public_resources, public_resources_path
+    return public_resources, raw_data_public_resources.path
 
 
 def download_files(client: Client, public_key: str, path: str, selected_resources: list):
-    """Функция скачивания выбранных фалов"""
+    """Функция скачивания выбранных файлов"""
 
     with client:
         public_resources, public_resources_path = get_public_resources(client=client, public_key=public_key, path=path)
@@ -54,7 +55,7 @@ def download_files(client: Client, public_key: str, path: str, selected_resource
 
 
 def download_all(client: Client, public_key: str, path: str):
-    """Функция скачивания всей текущей директории архивом"""
+    """Функция скачивания всей текущей директории одним архивом"""
 
     with client:
         if len(path) == 1:
