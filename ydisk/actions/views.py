@@ -2,7 +2,7 @@ import os
 import yadisk
 
 from django.core.cache import cache
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views import View
 
 from .forms import LinkForm, UserLoginForm
-from common.views import get_public_resources, download_files
+from common.views import get_public_resources, download_files, download_all
 
 
 class UserLoginView(LoginView):
@@ -45,11 +45,14 @@ class PublicKeyView(View):
         }
 
         if path:
-            public_resources, public_resources_path = get_public_resources(
-                client=self.client,
-                public_key=public_key,
-                path=path
-            )
+            try:
+                public_resources, public_resources_path = get_public_resources(
+                    client=self.client,
+                    public_key=public_key,
+                    path=path
+                )
+            except yadisk.exceptions.NotFoundError:
+                return redirect(reverse('actions:public_key'))
 
             context.update({
                 'form': self.form_class({'public_key': public_key}),
@@ -65,21 +68,20 @@ class PublicKeyView(View):
 
         if request.POST.get('enter_public_key'):
             reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': '*'})
-            return HttpResponseRedirect(reverse_url)
+            return redirect(reverse_url)
 
         if request.POST.get('level_up'):
             pre_path = path.rpartition('*')[0]  # при перемещении на уровень вверх убираем заднюю часть из пути
             path = pre_path if pre_path else '*'  # если верхний уровень '' то '*', заменится на '/' в get_public_resources
             reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': path})
-            return HttpResponseRedirect(reverse_url)
+            return redirect(reverse_url)
 
         if request.POST.get('download_selected'):
             selected_resources = [v for k, v in request.POST.items() if k.isdigit()]
             download_files(client=self.client, public_key=public_key, path=path, selected_resources=selected_resources)
-            print(f'скачиваем {selected_resources}')
 
         if request.POST.get('download_all'):
-            print('скачиваем всё архивом')
+            download_all(client=self.client, public_key=public_key, path=path)
 
         public_resources, public_resources_path = get_public_resources(
             client=self.client,
@@ -102,7 +104,7 @@ def clear_search(request):
     """ Функция для очистки полей формы поиска CityNameForm """
 
     redirect_url = reverse('actions:public_key')
-    return HttpResponseRedirect(redirect_url)
+    return redirect(redirect_url)
 
 
 def pageNotFound(request, exception):
