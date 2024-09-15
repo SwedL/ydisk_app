@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from .views import UserLoginView, PublicKeyView, clear_search
+from .views import PublicKeyView, UserLoginView, clear_search
 
 app_name = 'actions'
 

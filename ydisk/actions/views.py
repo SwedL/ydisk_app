@@ -1,16 +1,15 @@
-import os
 import yadisk
-
-from django.core.cache import cache
-from django.http import HttpResponseNotFound
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.core.cache import cache
+from django.http import HttpResponseNotFound
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 
+from common.views import download_all, download_files, get_public_resources
+
 from .forms import LinkForm, UserLoginForm
-from common.views import get_public_resources, download_files, download_all
 
 
 class UserLoginView(LoginView):
@@ -24,11 +23,6 @@ class UserLoginView(LoginView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
         return context
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('/')
 
 
 class PublicKeyView(View):
@@ -45,14 +39,19 @@ class PublicKeyView(View):
         }
 
         if path:
-            try:
-                public_resources, public_resources_path = get_public_resources(
-                    client=self.client,
-                    public_key=public_key,
-                    path=path
-                )
-            except yadisk.exceptions.NotFoundError:
-                return redirect(reverse('actions:public_key'))
+            data_from_cache = cache.get('/'.join([public_key, path]))
+            if data_from_cache:
+                public_resources, public_resources_path = data_from_cache
+            else:
+                try:
+                    public_resources, public_resources_path = get_public_resources(
+                        client=self.client,
+                        public_key=public_key,
+                        path=path
+                    )
+                    cache.set('/'.join([public_key, path]), (public_resources, public_resources_path), 3600)
+                except yadisk.exceptions.NotFoundError:
+                    return redirect(reverse('actions:public_key'))
 
             context.update({
                 'form': self.form_class({'public_key': public_key}),
@@ -61,7 +60,7 @@ class PublicKeyView(View):
                 'public_key': public_key
             })
 
-        return render(request, 'actions/public_link.html', context=context)
+        return render(request, 'actions/public_key.html', context=context)
 
     def post(self, request, public_key: str = None, path: str = '/'):
         public_key = request.POST.get('public_key')
@@ -72,7 +71,7 @@ class PublicKeyView(View):
 
         if request.POST.get('level_up'):
             pre_path = path.rpartition('*')[0]  # при перемещении на уровень вверх убираем заднюю часть из пути
-            path = pre_path if pre_path else '*'  # если верхний уровень '' то '*', заменится на '/' в get_public_resources
+            path = pre_path if pre_path else '*'  # если верхн. уровень, то '*', заменится на '/' в get_public_resources
             reverse_url = reverse('actions:public_key', kwargs={'public_key': public_key, 'path': path})
             return redirect(reverse_url)
 
@@ -97,15 +96,19 @@ class PublicKeyView(View):
             'public_key': public_key
         }
 
-        return render(request, 'actions/public_link.html', context=context)
+        return render(request, 'actions/public_key.html', context=context)
 
 
 def clear_search(request):
-    """ Функция для очистки полей формы поиска CityNameForm """
-
+    """ Функция очистки поля формы публичной ссылки """
     redirect_url = reverse('actions:public_key')
     return redirect(redirect_url)
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from actions.views import pageNotFound
+
 from . import settings
 
 urlpatterns = [
@@ -25,10 +26,10 @@ urlpatterns = [
     path('', include('actions.urls', namespace='actions')),
 ]
 
-# if settings.DEBUG:
-#     urlpatterns = [
-#         path("__debug__/", include("debug_toolbar.urls")),
-#     ] + urlpatterns
+if settings.DEBUG:
+    urlpatterns = [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ] + urlpatterns
 
 handler403 = pageNotFound
 handler404 = pageNotFound

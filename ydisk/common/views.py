@@ -1,8 +1,9 @@
 import os
 from dataclasses import dataclass
-from typing import Tuple
-from yadisk import Client
 from pathlib import Path
+from typing import Tuple
+
+from yadisk import Client
 
 
 @dataclass
@@ -26,14 +27,13 @@ def get_public_resources(client: Client, public_key: str, path: str) -> Tuple:
     with client:
         raw_data_public_resources = client.get_public_meta(public_key, path=path)
         public_resources = []
-        # public_resources_path = raw_data_public_resources.path
 
         for s in raw_data_public_resources.public_listdir(path=path):
             public_resources.append(PublicResource(
                 name=s['name'],
                 type=s['type'],
                 path=s['path'].replace('/', '*'),
-                download_link=s['file']
+                download_link=s['file'],
             ))
 
     return public_resources, raw_data_public_resources.path
@@ -64,7 +64,11 @@ def download_all(client: Client, public_key: str, path: str):
             public_resources_path = '/'
         else:
             # иначе имя берём из пути
-            public_resources, public_resources_path = get_public_resources(client=client, public_key=public_key, path=path)
+            public_resources, public_resources_path = get_public_resources(
+                client=client,
+                public_key=public_key,
+                path=path,
+            )
             public_resources_name = public_resources_path.rpartition('/')[-1]
 
         download_folder = str(os.path.join(Path.home(), f"Downloads\\{public_resources_name}.zip"))
