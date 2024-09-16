@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 
-from common.views import download_all, download_files, get_public_resources
+from common.views import YandexClient
 
 from .forms import LinkForm, UserLoginForm
 
@@ -25,12 +25,11 @@ class UserLoginView(LoginView):
         return context
 
 
-class PublicKeyView(View):
+class PublicKeyView(View, YandexClient):
     """ Представление страницы получения публичной ссылки """
 
     title = 'Публичная ссылка'
     form_class = LinkForm
-    client = yadisk.Client()
 
     def get(self, request, public_key: str = None, path: str = None):
         context = {
@@ -44,8 +43,7 @@ class PublicKeyView(View):
                 public_resources, public_resources_path = data_from_cache
             else:
                 try:
-                    public_resources, public_resources_path = get_public_resources(
-                        client=self.client,
+                    public_resources, public_resources_path = self.get_public_resources(
                         public_key=public_key,
                         path=path
                     )
@@ -77,16 +75,12 @@ class PublicKeyView(View):
 
         if request.POST.get('download_selected'):
             selected_resources = [v for k, v in request.POST.items() if k.isdigit()]
-            download_files(client=self.client, public_key=public_key, path=path, selected_resources=selected_resources)
+            self.download_files(public_key=public_key, path=path, selected_resources=selected_resources)
 
         if request.POST.get('download_all'):
-            download_all(client=self.client, public_key=public_key, path=path)
+            self.download_all(public_key=public_key, path=path)
 
-        public_resources, public_resources_path = get_public_resources(
-            client=self.client,
-            public_key=public_key,
-            path=path
-        )
+        public_resources, public_resources_path = self.get_public_resources(public_key=public_key, path=path)
 
         context = {
             'form': self.form_class(request.POST),
