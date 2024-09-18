@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Tuple
 
 from yadisk import Client
+from actions.tasks import download_select_resources
 
 
 # TODO реализовать асинхронное скачивание файлов в фоне (Celery)
@@ -56,7 +57,8 @@ class YandexClient:
                 else:
                     download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}"))
                 download_path = dpr.path.replace('*', '/')
-                self.client.download_public(public_key, download_folder, path=download_path)
+                print(public_key, download_folder, download_path, sep="\n")
+                download_select_resources.delay(public_key, download_folder, path=download_path)
 
     def download_all(self, public_key: str, path: str):
         """Функция скачивания всей текущей директории одним архивом"""
@@ -75,4 +77,5 @@ class YandexClient:
                 public_resources_name = public_resources_path.rpartition('/')[-1]
 
             download_folder = str(os.path.join(Path.home(), f"Downloads\\{public_resources_name}.zip"))
-            self.client.download_public(public_key, download_folder, path=public_resources_path)
+            download_select_resources(public_key, download_folder, path=public_resources_path)
+            # self.client.download_public(public_key, download_folder, path=public_resources_path)
