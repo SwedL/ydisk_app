@@ -52,8 +52,9 @@ class YandexClient:
                 if dpr.type == 'dir':
                     download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}.zip"))
                 else:
-                    download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}"))
-
+                    print(str(os.path.join(Path.home(), "")))
+                    download_folder = str("".join(["/ydisk", f"/{dpr.name}"]))
+                    print(download_folder)
                 download_path = dpr.path.replace('*', '/')
                 download_select_resources.delay(public_key, download_folder, download_path)
 

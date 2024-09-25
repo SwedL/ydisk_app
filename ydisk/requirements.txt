@@ -14,7 +14,7 @@ django-debug-toolbar==4.4.6
 dnspython==2.6.1
 eventlet==0.37.0
 greenlet==3.1.1
-idna==3.8
+idna==3.10
 kombu==5.4.2
 prompt_toolkit==3.0.47
 pycurl==7.45.3

@@ -1,27 +1,27 @@
-version: '3.8'
-
 services:
   ydisk_project:
-    build: /ydisk
-    container_name: ydisk_project
+    build: ./ydisk
+    container_name: ydisk
     command: >
       sh -c "python manage.py migrate \
       && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ydisk:/var/lib/postgresql/data/
+      - /ydisk:/ydisk
     ports:
       - "8000:8000"
 
   redis:
     image: redis:7.0.5-alpine
     hostname: redis
+    expose:
+      - 6379
 
   worker:
     build:
-      context: .
+      context: ./ydisk
     hostname: worker
     entrypoint: celery
-    command: -A ydisk worker --loglevel=info
+    command: -A ydisk.celery.app worker --loglevel=info
     volumes:
       - ydisk:/ydisk
     links:
