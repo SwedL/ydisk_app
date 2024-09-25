@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,14 +140,13 @@ LOGIN_REDIRECT_URL = '/public-key/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Redis
-# REDIS_URL = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379')
-# BROKER_URL = REDIS_URL
+REDIS_URL = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379')
+BROKER_URL = REDIS_URL
 
 # Celery
-# CELERY_BROKER_URL = REDIS_URL
-CELERY_BROKER_URL = "redis://redis:6379/0"
-# CELERY_RESULT_BACKEND = REDIS_URL
-# CELERY_ACCEPT_CONTENT = ['application/json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TASK_DEFAULT_QUEUE = 'default'
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_DEFAULT_QUEUE = 'default'
