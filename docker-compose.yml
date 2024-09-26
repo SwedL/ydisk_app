@@ -1,0 +1,28 @@
+services:
+  project:
+    build: ./ydisk
+    container_name: ydisk
+    command: >
+      sh -c "python manage.py migrate \
+      && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+
+  redis:
+    image: redis:7.0.5-alpine
+    hostname: redis
+    expose:
+      - 6379
+
+  worker:
+    build:
+      context: ./ydisk
+    hostname: worker
+    entrypoint: celery
+    command: -A ydisk.celery.app worker --loglevel=info
+    volumes:
+      - ./downloads:/downloads
+    links:
+      - redis
+    depends_on:
+      - redis

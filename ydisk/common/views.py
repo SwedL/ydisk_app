@@ -4,9 +4,7 @@ from pathlib import Path
 from typing import Tuple
 
 from yadisk import Client
-
-
-# TODO реализовать асинхронное скачивание файлов в фоне (Celery)
+from actions.tasks import download_select_resources
 
 
 @dataclass
@@ -24,7 +22,7 @@ class YandexClient:
         """
         Функция получает все публичные ресурсы по заданному пути,
         возвращает кортеж из списка публичных ресурсов и путь,
-        для отображение в строке интерфейса пользователя
+        для отображения в строке интерфейса пользователя
         """
 
         if '*' in path:
@@ -33,7 +31,6 @@ class YandexClient:
         with self.client:
             raw_data_public_resources = self.client.get_public_meta(public_key, path=path)
             public_resources = []
-
             for s in raw_data_public_resources.public_listdir(path=path):
                 public_resources.append(PublicResource(
                     name=s['name'],
@@ -41,7 +38,6 @@ class YandexClient:
                     path=s['path'].replace('/', '*'),
                     download_link=s['file'],
                 ))
-
         return public_resources, raw_data_public_resources.path
 
     def download_files(self, public_key: str, path: str, selected_resources: list):
@@ -52,14 +48,15 @@ class YandexClient:
             download_public_resources = [pr for pr in public_resources if pr.name in selected_resources]
             for dpr in download_public_resources:
                 if dpr.type == 'dir':
-                    download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}.zip"))
+                    download_folder = self.get_download_path(file_name=dpr.name, is_directory=True)
                 else:
-                    download_folder = str(os.path.join(Path.home(), f"Downloads\\{dpr.name}"))
+                    download_folder = self.get_download_path(file_name=dpr.name, is_directory=False)
+
                 download_path = dpr.path.replace('*', '/')
-                self.client.download_public(public_key, download_folder, path=download_path)
+                download_select_resources.delay(public_key, download_folder, download_path)
 
     def download_all(self, public_key: str, path: str):
-        """Функция скачивания всей текущей директории одним архивом"""
+        """Функция скачивания всех файлов текущей директории одним архивом"""
 
         with self.client:
             if len(path) == 1:
@@ -74,5 +71,32 @@ class YandexClient:
                 )
                 public_resources_name = public_resources_path.rpartition('/')[-1]
 
-            download_folder = str(os.path.join(Path.home(), f"Downloads\\{public_resources_name}.zip"))
-            self.client.download_public(public_key, download_folder, path=public_resources_path)
+            download_folder = self.get_download_path(file_name=public_resources_name, is_directory=True)
+            download_select_resources(public_key, download_folder, path=public_resources_path)
+
+    @staticmethod
+    def get_download_path(file_name: str, is_directory: bool = False):
+        """
+        Функция создания пути сохранения ресурса, в зависимости как развёрнуто приложение
+        в Docker или локально.
+        """
+
+        path_home = str(Path.cwd().parents[0])
+        if is_directory:
+            if os.name != 'nt':
+                return f'/downloads/{file_name}.zip'
+            return str(os.path.join(path_home, f'downloads/{file_name}.zip'))
+        else:
+            if os.name != 'nt':
+                return f'/downloads/{file_name}'
+            return str(os.path.join(path_home, f'downloads/{file_name}'))
+
+        # path_home = str(Path.cwd().parents[0])
+        # if is_directory:
+        #     if path_home == '/root':
+        #         return f'/downloads/{file_name}.zip'
+        #     return str(os.path.join(path_home, f'downloads\\{file_name}.zip'))
+        # else:
+        #     if path_home == '/root':
+        #         return f'/downloads/{file_name}'
+        #     return str(os.path.join(path_home, f'downloads\\{file_name}'))

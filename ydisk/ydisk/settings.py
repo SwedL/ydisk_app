@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--4dai8fo!nk+x76t(#ukor3f0_4h#4v)&67^x=gakg^hvv_zep'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -123,6 +127,7 @@ STATIC_URL = 'static/'
 
 INTERNAL_IPS = [
     '127.0.0.1',
+    'localhost',
 ]
 
 # Default primary key field type
@@ -133,3 +138,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'structure:login'
 LOGIN_REDIRECT_URL = '/public-key/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Redis
+REDIS_URL = 'redis://127.0.0.1:6379' if os.name == 'nt' else os.getenv('REDIS_URL')
+BROKER_URL = REDIS_URL
+
+# Celery
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_DEFAULT_QUEUE = 'default'
