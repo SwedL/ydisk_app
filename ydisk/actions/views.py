@@ -93,7 +93,7 @@ class PublicKeyView(View, YandexClient):
         return render(request, 'actions/public_key.html', context=context)
 
 
-def clear_search(request):
+def clear_link(request):
     """ Функция очистки поля формы публичной ссылки """
     redirect_url = reverse('actions:public_key')
     return redirect(redirect_url)

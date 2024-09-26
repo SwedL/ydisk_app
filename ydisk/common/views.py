@@ -71,7 +71,6 @@ class YandexClient:
                     path=path,
                 )
                 public_resources_name = public_resources_path.rpartition('/')[-1]
-
             download_folder = self.get_download_path(file_name=public_resources_name, is_directory=True)
             download_select_resources(public_key, download_folder, path=public_resources_path)
 
@@ -83,11 +82,12 @@ class YandexClient:
         """
 
         path_home = str(Path.cwd().parents[0])
+
         if is_directory:
             if os.name != 'nt':
                 return f'/downloads/{file_name}.zip'
-            return str(os.path.join(path_home, f'downloads/{file_name}.zip'))
+            return str(os.path.join(path_home, f'downloads\\{file_name}.zip'))
         else:
             if os.name != 'nt':
                 return f'/downloads/{file_name}'
-            return str(os.path.join(path_home, f'downloads/{file_name}'))
+            return str(os.path.join(path_home, f'downloads\\{file_name}'))
