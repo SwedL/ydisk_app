@@ -76,14 +76,27 @@ class YandexClient:
 
     @staticmethod
     def get_download_path(file_name: str, is_directory: bool = False):
-        """Функция создания пути сохранения ресурса"""
+        """
+        Функция создания пути сохранения ресурса, в зависимости как развёрнуто приложение
+        в Docker или локально.
+        """
 
-        path_home = str(Path.home())
+        path_home = str(Path.cwd().parents[0])
         if is_directory:
-            if path_home == '/root':
+            if os.name != 'nt':
                 return f'/downloads/{file_name}.zip'
             return str(os.path.join(path_home, f'downloads/{file_name}.zip'))
         else:
-            if path_home == '/root':
+            if os.name != 'nt':
                 return f'/downloads/{file_name}'
             return str(os.path.join(path_home, f'downloads/{file_name}'))
+
+        # path_home = str(Path.cwd().parents[0])
+        # if is_directory:
+        #     if path_home == '/root':
+        #         return f'/downloads/{file_name}.zip'
+        #     return str(os.path.join(path_home, f'downloads\\{file_name}.zip'))
+        # else:
+        #     if path_home == '/root':
+        #         return f'/downloads/{file_name}'
+        #     return str(os.path.join(path_home, f'downloads\\{file_name}'))

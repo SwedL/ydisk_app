@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--4dai8fo!nk+x76t(#ukor3f0_4h#4v)&67^x=gakg^hvv_zep'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -140,7 +140,7 @@ LOGIN_REDIRECT_URL = '/public-key/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Redis
-REDIS_URL = os.getenv('REDIS_URL', 'redis://127.0.0.1:6379')
+REDIS_URL = 'redis://127.0.0.1:6379' if os.name == 'nt' else os.getenv('REDIS_URL')
 BROKER_URL = REDIS_URL
 
 # Celery

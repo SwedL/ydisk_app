@@ -1,12 +1,10 @@
 services:
-  ydisk_project:
+  project:
     build: ./ydisk
     container_name: ydisk
     command: >
       sh -c "python manage.py migrate \
       && python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - downloads:/downloads
     ports:
       - "8000:8000"
 
@@ -23,25 +21,8 @@ services:
     entrypoint: celery
     command: -A ydisk.celery.app worker --loglevel=info
     volumes:
-      - downloads:/downloads
+      - ./downloads:/downloads
     links:
       - redis
     depends_on:
       - redis
-
-#  flower:
-#    build:
-#      context: .
-#    hostname: flower
-#    entrypoint: celery
-#    command: -A ydisk.app flower
-#    volumes:
-#      - ./ydisk:/ydisk
-#    links:
-#      - redis
-#    depends_on:
-#      - redis
-
-volumes:
-  downloads:
-

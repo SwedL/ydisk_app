@@ -12,6 +12,5 @@ def download_select_resources(public_key, download_folder, path):
             pycurl.MAXREDIRS: 15
         }
                            )
-# celery -A ydisk flower
 
 # celery -A ydisk worker -P eventlet --loglevel=info
