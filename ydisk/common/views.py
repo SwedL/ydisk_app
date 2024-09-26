@@ -54,7 +54,7 @@ class YandexClient:
                     download_folder = self.get_download_path(file_name=dpr.name, is_directory=False)
 
                 download_path = dpr.path.replace('*', '/')
-                download_select_resources.delay(public_key, download_folder, download_path)
+                download_select_resources.delay(public_key, download_folder, path=download_path)
 
     def download_all(self, public_key: str, path: str):
         """Функция скачивания всех файлов текущей директории одним архивом"""
@@ -72,7 +72,7 @@ class YandexClient:
                 )
                 public_resources_name = public_resources_path.rpartition('/')[-1]
             download_folder = self.get_download_path(file_name=public_resources_name, is_directory=True)
-            download_select_resources(public_key, download_folder, path=public_resources_path)
+            download_select_resources.delay(public_key, download_folder, path=public_resources_path)
 
     @staticmethod
     def get_download_path(file_name: str, is_directory: bool = False):
