@@ -1,6 +1,6 @@
-from celery import shared_task
 import pycurl
 import yadisk
+from celery import shared_task
 
 
 @shared_task()

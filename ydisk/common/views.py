@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Tuple
 
 from yadisk import Client
+
 from actions.tasks import download_select_resources
 
 
@@ -90,13 +91,3 @@ class YandexClient:
             if os.name != 'nt':
                 return f'/downloads/{file_name}'
             return str(os.path.join(path_home, f'downloads/{file_name}'))
-
-        # path_home = str(Path.cwd().parents[0])
-        # if is_directory:
-        #     if path_home == '/root':
-        #         return f'/downloads/{file_name}.zip'
-        #     return str(os.path.join(path_home, f'downloads\\{file_name}.zip'))
-        # else:
-        #     if path_home == '/root':
-        #         return f'/downloads/{file_name}'
-        #     return str(os.path.join(path_home, f'downloads\\{file_name}'))
