@@ -26,7 +26,7 @@ class UserLoginView(LoginView):
 
 
 class PublicKeyView(View, YandexClient):
-    """ Представление страницы получения публичной ссылки """
+    """ Представление работы с публичной ссылкой """
 
     title = 'Публичная ссылка'
     form_class = LinkForm
