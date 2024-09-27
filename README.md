@@ -89,20 +89,23 @@ python manage.py createsuperuser
 - Windows: `celery -A ydisk worker -P eventlet --loglevel=info`
 - Linux: `celery -A ydisk worker`
 ```
+
 Откройте новое окно терминала, снова активируйте виртуальное окружение командой:
 - Windows: `.\venv\Scripts\activate`
 - Linux: `source venv/bin/activate`
+
 Перейдите в каталог приложения `ydisk`.<br>
 ```sh
 cd ydisk
 ```
+
 Запустите сервер:
 ```sh
 python manage.py runserver
 ```
 Сервер работает на адресе <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a>
 
-## Как запустить версию сайта в docker.
+## Как запустить приложение в Docker.
 Скачайте код:
 ```sh
 git clone https://github.com/SwedL/ydisk_app.git
