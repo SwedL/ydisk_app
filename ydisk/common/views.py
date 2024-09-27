@@ -82,6 +82,10 @@ class YandexClient:
         """
 
         path_home = str(Path.cwd().parents[0])
+        directory = Path.cwd().parents[0].joinpath('downloads')
+
+        if os.name == 'nt' and not directory.exists():
+            directory.mkdir(parents=False, exist_ok=False)
 
         if is_directory:
             if os.name != 'nt':
