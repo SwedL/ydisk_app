@@ -88,10 +88,9 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 Запустите worker Celery:
-```sh
 - Windows: `celery -A ydisk worker -P eventlet --loglevel=info`
 - Linux: `celery -A ydisk worker`
-```
+
 
 Откройте новое окно терминала, снова активируйте виртуальное окружение командой:
 - Windows: `.\venv\Scripts\activate`
