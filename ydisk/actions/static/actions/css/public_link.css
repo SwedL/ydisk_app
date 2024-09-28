@@ -110,12 +110,12 @@
   width: 120px;
 }
 
-/* line 86, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 85, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .btn-x {
   margin-top: 4px;
 }
 
-/* line 88, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 87, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .btn-level-up {
   width: 40px;
   height: 40px;
@@ -124,13 +124,13 @@
   border: 1px solid #959ba7;
 }
 
-/* line 94, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 93, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .btn-downloads {
   width: 20%;
   margin-right: 15px;
 }
 
-/* line 99, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 98, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -139,14 +139,14 @@
   box-sizing: border-box;
 }
 
-/* line 106, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 105, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 html {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-/* line 111, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 110, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .public_link {
   position: absolute;
   top: 33%;
@@ -156,7 +156,7 @@ html {
   height: 300px;
 }
 
-/* line 119, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 118, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .input_public_key {
   width: 86%;
   background: #E8F0FE;
@@ -175,7 +175,7 @@ html {
   transition: box-shadow .5s ease;
 }
 
-/* line 137, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 135, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .form__public_key {
   display: flex;
   justify-content: space-between;
@@ -183,14 +183,14 @@ html {
   margin-bottom: 30px;
 }
 
-/* line 144, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 142, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .public_resources__path {
   display: flex;
   width: 100%;
   height: 55px;
 }
 
-/* line 148, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 146, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .public_resources__path_str {
   width: 20%;
   margin-bottom: 15px;
@@ -211,17 +211,17 @@ html {
   transition: box-shadow .5s ease;
 }
 
-/* line 166, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 164, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .public_resources__table {
   margin-bottom: 20px;
 }
 
-/* line 172, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 169, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .resource__input {
   width: 30px;
 }
 
-/* line 174, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
+/* line 171, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/public_link.sass */
 .resource__type {
   width: 40px;
 }

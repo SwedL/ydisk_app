@@ -27,8 +27,15 @@
         <header class="header">
             <div class="header__container">
                 <div class="header__container-logo">
-                    <img class="header__logo bi bi-cloud-sun me-2" src="{% static 'actions/icons/logo_yd.png' %}" alt="logo">
+                    <img class="header__logo" src="{% static 'actions/icons/logo_folder.png' %}" alt="logo">
                 </div>
+                {% if user.is_authenticated %}
+                <div class="header__container-logout">
+                    <a href="{% url 'actions:logout' %}">
+                        <img class="header__logout" src="{% static 'actions/icons/logout.png' %}" alt="logo">
+                    </a>
+                </div>
+                {% endif %}
             </div>
         </header>
 

@@ -6,6 +6,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from common.views import YandexClient
 
@@ -25,7 +26,7 @@ class UserLoginView(LoginView):
         return context
 
 
-class PublicKeyView(View, YandexClient):
+class PublicKeyView(LoginRequiredMixin, View, YandexClient):
     """ Представление работы с публичной ссылкой """
 
     title = 'Публичная ссылка'

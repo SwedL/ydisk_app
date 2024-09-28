@@ -33,33 +33,47 @@ body {
 
 /* line 26, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
 .header {
-  top: 0;
   height: 60px;
   background: #0F1C23;
+  display: flex;
 }
 
-/* line 30, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+/* line 31, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
 .header__container {
   height: 60px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 1300px;
   margin: 0 auto;
 }
 
-/* line 37, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+/* line 38, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
 .header__container-logo {
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-/* line 39, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+/* line 42, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
 .header__logo {
-  margin-right: 300px;
   width: 60px;
+  height: 45px;
 }
 
-/* line 44, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+/* line 45, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+.header__container-logout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* line 49, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
+.header__logout {
+  width: 22px;
+}
+
+/* line 52, ../../Users/Алексей/PycharmProjects/yandex_disk_app/ydisk/actions/static/actions/sass/base.sass */
 .form-control {
   margin-bottom: 10px;
   background: #ededed;
