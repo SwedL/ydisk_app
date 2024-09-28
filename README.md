@@ -26,7 +26,7 @@
 <a href="https://ibb.co/fFdD0sv"><img src="https://i.ibb.co/r02dyVs/ydisk1.png" alt="ydisk1" border="0"></a>
 </p>
 <p align="center">
-<a href="https://ibb.co/FDTzrmF"><img src="https://i.ibb.co/d5YDTjR/ydisk2.png" alt="ydisk2" border="0"></a>
+<a href="https://ibb.co/FDTzrmF"><img src="https://i.ibb.co/G5SR6nq/ydisk2.png" alt="ydisk2" border="0"></a>
 </p>
 <p align="center">
 <a href="https://ibb.co/BCdZHxc"><img src="https://i.ibb.co/QKzN7Rp/ydisk3.png" alt="ydisk3" border="0"></a>
